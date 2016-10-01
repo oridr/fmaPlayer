@@ -4,17 +4,7 @@
     <meta charset="UTF-8">
     <title>Soundcloud Player</title>
 </head>
-<body>
-    <div class="soundcloudPlayer">
-        <div class="playerControls">
-            <button type="button" class="playerControls__control playerControls__play"></button>
-            <button type="button" class="playerControls__control playerControls__forward"></button>
-            <button type="button" class="playerControls__control playerControls__backward"></button>
-            <button type="button" class="playerControls__control playerControls__pause"></button>
-        </div>
-        <div class="playerTrack">
-            <div class="playerTrack__progressbar" data-current-time="01:31" data-end-time="03:51"></div>
-        </div>
-    </div>
+<body ng-app="app">
+    <sc-app></sc-app>
 </body>
 </html>
