@@ -1,0 +1,31 @@
+{
+  "parser": "babel-eslint",
+  "extends": "eslint:recommended",
+
+  "ecmaFeatures": {
+	"experimentalObjectRestSpread": true
+  },
+
+  "rules": {
+	"semi": [2, "always"],
+	"no-unused-vars": 1,
+	"no-mixed-spaces-and-tabs": 1,
+	"no-console": 1,
+	"no-case-declarations": 1
+  },
+
+  "env": {
+	"browser": true,
+	"worker": true,
+	"commonjs": true
+  },
+
+  "globals": {
+	"angular": true,
+	"inject": true,
+	"Map": true,
+	"Set": true,
+	"Symbol": true
+  }
+
+}

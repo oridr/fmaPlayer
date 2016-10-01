@@ -1,0 +1,76 @@
+.playerControls {
+	margin: 10px;
+}
+
+.playerControls__control {
+	height: 20px;
+	padding: 0;
+	border: none;
+	outline: none;
+	background: transparent;
+	color: #1dbb9b;
+}
+
+.playerControls__control:hover {
+	color: #1dddbc;
+}
+
+.playerControls__backward {
+	transform: rotate(180deg);
+	transform-origin: center center;
+}
+
+.playerControls__pause {
+	width: 15px;
+	border-style: solid;
+	border-width: 0 5px 0 5px;
+}
+
+.playerControls__play::before, .playerControls__backward::before, .playerControls__forward::before {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 10px 0 10px 15px;
+	border-color: transparent transparent transparent currentColor;
+	content: '';
+}
+
+.playerControls__forward::after, .playerControls__backward::after {
+	display: inline-block;
+	width: 5px;
+	height: 20px;
+	margin: 0 0 0 6px;
+	background: currentColor;
+	vertical-align: top;
+	content: '';
+}
+
+.playerTrack__progressbar {
+	position: relative;
+	width: 300px;
+	height: 2px;
+	background: #e3e5e5 linear-gradient(to right, currentColor, currentColor) no-repeat;
+	color: #9ee6d9;
+}
+
+.playerTrack__progressbar::before, .playerTrack__progressbar::after {
+	display: block;
+	position: absolute;
+	top: 11px;
+	color: #999b9b;
+	font-size: 13px;
+	font-weight: 300;
+	line-height: 13px;
+	font-family: Helvetica, sans-serif;
+}
+
+.playerTrack__progressbar::before {
+	left: 0;
+	content: attr(data-current-time);
+}
+
+.playerTrack__progressbar::after {
+	right: 0;
+	content: attr(data-end-time);
+}
