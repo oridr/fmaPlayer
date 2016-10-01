@@ -1,0 +1,58 @@
+@controlColor: #1dbb9b;
+@controlColorHover: #1dddbc;
+
+.playerControls {
+	&__control {
+		height: 20px;
+		padding: 0;
+		border: none;
+		outline: none;
+		background: transparent;
+		color: @controlColor;
+		cursor: pointer;
+		vertical-align: top;
+
+		&:hover {
+			color: @controlColorHover;
+		}
+
+		&--play {
+			width: 15px;
+		}
+
+		&--pause {
+			width: 15px;
+			border-style: solid;
+			border-width: 0 5px 0 5px;
+		}
+
+		&--pause, &--play {
+			margin: 0 16px;
+		}
+
+		&--backward {
+			transform: rotate(180deg);
+			transform-origin: center center;
+		}
+
+		&--play::before, &--backward::before, &--forward::before {
+			display: inline-block;
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 10px 0 10px 15px;
+			border-color: transparent transparent transparent currentColor;
+			content: '';
+		}
+
+		&--forward::after, &--backward::after {
+			display: inline-block;
+			width: 5px;
+			height: 20px;
+			margin: 0 0 0 6px;
+			background: currentColor;
+			vertical-align: top;
+			content: '';
+		}
+	}
+}

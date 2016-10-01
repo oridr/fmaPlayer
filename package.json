@@ -4,7 +4,9 @@
   "description": "",
   "author": "Ori Drori",
   "main": "index.js",
-  "engines" : { "node" : ">= 6.0.0" },
+  "engines": {
+    "node": ">= 6.0.0"
+  },
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack -p"
@@ -28,6 +30,7 @@
     "html-webpack-plugin": "2.22.0",
     "http-server": "0.9.0",
     "less": "2.7.1",
+    "less-loader": "2.2.3",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "1.13.2",

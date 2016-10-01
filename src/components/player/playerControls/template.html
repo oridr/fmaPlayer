@@ -1,6 +1,21 @@
 <div class="playerControls">
-    <button type="button" class="playerControls__control playerControls__backward"></button>
-    <button type="button" class="playerControls__control playerControls__play"></button>
-    <button type="button" class="playerControls__control playerControls__pause"></button>
-    <button type="button" class="playerControls__control playerControls__forward"></button>
+    <button ng-click="playerControlsCtrl.backward()"
+            type="button" class="playerControls__control playerControls__control--backward">
+    </button>
+
+    <ng-switch on="!!playerControlsCtrl.playing">
+        <button ng-switch-when="false"
+                ng-click="playerControlsCtrl.play()"
+                type="button" class="playerControls__control playerControls__control--play">
+        </button>
+
+        <button ng-switch-when="true"
+                ng-click="playerControlsCtrl.pause()"
+                type="button" class="playerControls__control playerControls__control--pause">
+        </button>
+    </ng-switch>
+
+    <button ng-click="playerControlsCtrl.forward()"
+            type="button" class="playerControls__control playerControls__control--forward">
+    </button>
 </div>
