@@ -1,0 +1,28 @@
+.trackProgressbar {
+	position: relative;
+	width: 300px;
+	height: 2px;
+	background: #e3e5e5 linear-gradient(to right, currentColor, currentColor) no-repeat;
+	color: #9ee6d9;
+
+	&::before, &::after {
+		display: block;
+		position: absolute;
+		top: 11px;
+		color: #999b9b;
+		font-size: 13px;
+		font-weight: 300;
+		line-height: 13px;
+		font-family: Helvetica, sans-serif;
+	}
+
+	&::before {
+		left: 0;
+		content: attr(data-current-time);
+	}
+
+	&::after {
+		right: 0;
+		content: attr(data-total-time);
+	}
+}
