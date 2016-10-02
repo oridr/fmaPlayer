@@ -1,5 +1,22 @@
 <div class="player">
-    <audio src="http://stream.kraftyradio.com/narrow" autoplay>
+    <audio src="http://stream.kraftyradio.com/narrow">
         Your browser does not support the <code>audio</code> element.
     </audio>
+
+    <div class="player__dashboard">
+        <div class="player__controlsContainer">
+            <player-controls playing="playerCtrl.playing"
+                             backward="playerCtrl.backward()"
+                             forward="playerCtrl.forward()"
+                             play="playerCtrl.play()"
+                             pause="playerCtrl.pause()">
+            </player-controls>
+        </div>
+
+        <div class="player__trackContainer">
+            <track-details artist-name="playerCtrl.artistName" track-name="playerCtrl.trackName"></track-details>
+
+            <track-progressbar current-time="playerCtrl.currentTime" total-time="playerCtrl.totalTime"></track-progressbar>
+        </div>
+    </div>
 </div>
