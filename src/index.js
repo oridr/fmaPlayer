@@ -1,4 +1,5 @@
-import 'styles/normalize.css';
+import 'styles/index.less';
+
 import angular from 'angular';
 
 import scApp from './components/scApp';
