@@ -12,12 +12,12 @@ const module = angular.module('playerModule', [
 	trackDetails
 ]);
 
-controller.$inject = ['$element', '$scope'];
-function controller($element, $scope) {
+controller.$inject = ['$scope'];
+function controller($scope) {
 	"use strict";
 
-	const $audio = $element.find('audio');
-	const audioElement = $audio[0];
+	const audio = new Audio();
+	const $audio = angular.element(audio);
 
 	this.playing = false;
 
@@ -25,34 +25,42 @@ function controller($element, $scope) {
 		this.currentTime = 0;
 		this.totalTime = 0;
 
-		this.playing && this.play();
+		audio.src = this.trackData.audioUrl;
 	};
 
 	this.$onDestroy = () => $audio.off();
 
 	$audio
-		.on('timeupdate', () => {
-			this.currentTime = audioElement.currentTime;
+		.on('durationchange', () => {
+			this.totalTime = audio.duration;
 
 			$scope.$digest(); // update only the local scope, and it's descendants
 		})
-		.on('playing', () => $scope.$applyAsync(() => {
-			this.playing = true;
-			this.totalTime = audioElement.duration;
-		}))
+		.on('playing', () => {
+			audio.autoplay = true;
+
+			$scope.$applyAsync(() => this.playing = true);
+		})
+		.on('timeupdate', () => {
+			this.currentTime = audio.currentTime;
+
+			$scope.$digest(); // update only the local scope, and it's descendants
+		})
 		.on('ended', () => {
 			$scope.$applyAsync(this.forward);
 		});
 
-	this.play = () => audioElement.play();
+	this.play = () => audio.play();
 
 	this.pause = () => {
-		audioElement.pause();
+		audio.pause();
+
+		audio.autoplay = false;
 
 		this.playing = false;
 	};
 
-	this.seek = (time) => audioElement.currentTime = time;
+	this.seek = (time) => audio.currentTime = time;
 }
 
 module.component('player', {
