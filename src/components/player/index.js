@@ -12,53 +12,56 @@ const module = angular.module('playerModule', [
 	trackDetails
 ]);
 
-controller.$inject = ['$element', '$scope', '$window'];
-function controller($element, $scope, $window) {
+controller.$inject = ['$element', '$scope'];
+function controller($element, $scope) {
 	"use strict";
 
-	const $audio = $element.find('audio')[0];
+	const $audio = $element.find('audio');
+	const audioElement = $audio[0];
 
 	this.playing = false;
-	this.currentTime = 0;
-	this.totalTime = 0;
-	this.artistName = 'Childish Gambino';
-	this.trackName = 'Candler Road';
 
-	this.backward = () => console.log('back');
-	this.forward = () => console.log('forward');
+	this.$onChanges = () => {
+		this.currentTime = 0;
+		this.totalTime = 0;
 
-	this.changePlayingStatus = (status = true) => this.playing = status;
-
-	this.getCurrentTime = () => {
-		if(!this.playing) {
-			return;
-		}
-
-		this.currentTime = $audio.currentTime;
-
-		$scope.$digest(); // update only the local scope, and it's descendants
-
-		$window.requestAnimationFrame(this.getCurrentTime);
+		this.playing && this.play();
 	};
 
-	this.play = () => $audio.play().then(() => {
-		$scope.$apply(() => this.changePlayingStatus(true));
+	this.$onDestroy = () => $audio.off();
 
-		this.totalTime = $audio.duration;
+	$audio
+		.on('timeupdate', () => {
+			this.currentTime = audioElement.currentTime;
 
-		this.getCurrentTime();
-	});
+			$scope.$digest(); // update only the local scope, and it's descendants
+		})
+		.on('playing', () => $scope.$applyAsync(() => {
+			this.playing = true;
+			this.totalTime = audioElement.duration;
+		}))
+		.on('ended', () => {
+			$scope.$applyAsync(this.forward);
+		});
+
+	this.play = () => audioElement.play();
 
 	this.pause = () => {
-		$audio.pause();
-		this.changePlayingStatus(false);
+		audioElement.pause();
+
+		this.playing = false;
 	};
 }
 
 module.component('player', {
 	template: require('./template.html'),
 	controller,
-	controllerAs: 'playerCtrl'
+	controllerAs: 'playerCtrl',
+	bindings: {
+		forward: '&',
+		backward: '&',
+		trackData: '<'
+	}
 });
 
 export default module.name;

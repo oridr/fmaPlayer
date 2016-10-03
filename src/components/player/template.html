@@ -1,9 +1,9 @@
 <div class="player">
-    <audio src="http://stream.kraftyradio.com/narrow">
+    <audio ng-src="{{ playerCtrl.trackData.audioUrl }}">
         Your browser does not support the <code>audio</code> element.
     </audio>
 
-    <div class="player__trackImage" ng-style="{ backgroundImage: 'url(http://localhost:3333/childish__gambino.jpg)' }"></div>
+    <div class="player__trackImage" ng-style="{ backgroundImage: 'url(' + playerCtrl.trackData.trackImage + ')' }"></div>
 
     <div class="player__dashboard">
         <div class="player__controlsContainer">
@@ -16,7 +16,7 @@
         </div>
 
         <div class="player__trackContainer">
-            <track-details artist-name="playerCtrl.artistName" track-name="playerCtrl.trackName"></track-details>
+            <track-details artist-name="playerCtrl.trackData.artistName" track-name="playerCtrl.trackData.trackName"></track-details>
 
             <track-progressbar current-time="playerCtrl.currentTime" total-time="playerCtrl.totalTime"></track-progressbar>
         </div>
