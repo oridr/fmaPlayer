@@ -12,6 +12,13 @@ function controller() {
 
 		this.backgroundSize = `${width}% 100%`;
 	};
+
+	this.pickTime = (e) => {
+		const rect = e.target.getBoundingClientRect();
+		const percentage = (e.clientX - rect.left) / rect.width;
+
+		this.seek({ time: percentage * this.totalTime });
+	};
 }
 
 module.component('trackProgressbar', {
@@ -20,7 +27,8 @@ module.component('trackProgressbar', {
 	controllerAs: 'trackProgressbarCtrl',
 	bindings: {
 		currentTime: '<',
-		totalTime: '<'
+		totalTime: '<',
+		seek: '&'
 	}
 });
 

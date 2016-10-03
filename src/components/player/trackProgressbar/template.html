@@ -1,5 +1,6 @@
 <div class="trackProgressbar"
      ng-style="{ backgroundSize: trackProgressbarCtrl.backgroundSize }"
      data-current-time="{{ trackProgressbarCtrl.currentTime | trackTime }}"
-     data-total-time="{{ trackProgressbarCtrl.totalTime | trackTime }}">
+     data-total-time="{{ trackProgressbarCtrl.totalTime | trackTime }}"
+     ng-click="trackProgressbarCtrl.pickTime($event)">
 </div>
