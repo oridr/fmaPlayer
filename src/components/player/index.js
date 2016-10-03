@@ -51,6 +51,8 @@ function controller($element, $scope) {
 
 		this.playing = false;
 	};
+
+	this.seek = (time) => audioElement.currentTime = time;
 }
 
 module.component('player', {
