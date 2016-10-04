@@ -12,8 +12,8 @@ const module = angular.module('playerModule', [
 	trackDetails
 ]);
 
-controller.$inject = ['$scope', '$q'];
-function controller($scope, $q) {
+controller.$inject = ['$scope', '$q', 'config'];
+function controller($scope, $q, config) {
 	"use strict";
 
 	const audio = new Audio();
@@ -25,7 +25,7 @@ function controller($scope, $q) {
 	this.totalTime = 0;
 	this.currentTime = 0;
 
-	this.playerBg = 'http://res.cloudinary.com/dmc5off8m/image/upload/v1475591496/player_bg_dzc3sm.jpg';
+	this.playerBg = config.defaultBackground;
 
 	this.$onChanges = () => {
 		this.loading = true;
