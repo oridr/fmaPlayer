@@ -1,5 +1,9 @@
 <div class="player">
     <div class="player__trackImage"
+         ng-class="{
+            'player__trackImage--fromLeft': playerCtrl.scrollFromLeft,
+            'player__trackImage--fromRight': !playerCtrl.scrollFromLeft
+         }"
          ng-style="{ backgroundImage: 'url(' + playerCtrl.playerBg + ')' }"
          ng-animate-swap="playerCtrl.playerBg">
         <div class="player__loader" ng-if="playerCtrl.showLoader"></div>

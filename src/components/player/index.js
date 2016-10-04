@@ -93,7 +93,8 @@ module.component('player', {
 	bindings: {
 		forward: '&',
 		backward: '&',
-		trackData: '<'
+		trackData: '<',
+		scrollFromLeft: '<'
 	}
 });
 
