@@ -35,11 +35,11 @@ function controller($scope, $q, config) {
 		}
 
 		$q.all([
-				new Promise((resolve) => image.onload = () => {
+				$q((resolve) => image.onload = () => {
 					this.playerBg = this.trackData.trackImage;
 					resolve();
 				}),
-				new Promise((resolve) => audio.onloadedmetadata = () => resolve())
+				$q((resolve) => audio.onloadedmetadata = () => resolve())
 			]
 		).then(() => {
 			this.loading = false;
