@@ -7,7 +7,6 @@ npm i
 ## Running the app
 npm start
 
-### Build files
-
+## Build files
 * npm run build
 * files can be found in build folder
