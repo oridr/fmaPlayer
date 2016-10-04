@@ -12,30 +12,48 @@ const module = angular.module('playerModule', [
 	trackDetails
 ]);
 
-controller.$inject = ['$scope'];
-function controller($scope) {
+controller.$inject = ['$scope', '$q'];
+function controller($scope, $q) {
 	"use strict";
 
 	const audio = new Audio();
 	const $audio = angular.element(audio);
+	const image = new Image();
 
 	this.playing = false;
+	this.showLoader = true;
+	this.totalTime = 0;
+	this.currentTime = 0;
+
+	this.playerBg = 'http://res.cloudinary.com/dmc5off8m/image/upload/v1475591496/player_bg_dzc3sm.jpg';
 
 	this.$onChanges = () => {
-		this.currentTime = 0;
-		this.totalTime = 0;
+		this.showLoader = true;
 
-		this.trackData && (audio.src = this.trackData.audioUrl);
+		if(!this.trackData) {
+			return;
+		}
+
+		$q.all([
+				new Promise((resolve) => image.onload = () => {
+					this.playerBg = this.trackData.trackImage;
+					resolve();
+				}),
+				new Promise((resolve) => audio.onloadedmetadata = () => resolve())
+			]
+		).then(() => {
+			this.showLoader = false;
+			this.totalTime = audio.duration;
+			this.currentTime = 0;
+		});
+
+		audio.src = this.trackData.audioUrl;
+		image.src = this.trackData.trackImage;
 	};
 
 	this.$onDestroy = () => $audio.off();
 
 	$audio
-		.on('durationchange', () => {
-			this.totalTime = audio.duration;
-
-			$scope.$digest(); // update only the local scope, and it's descendants
-		})
 		.on('playing', () => {
 			audio.autoplay = true;
 
@@ -49,6 +67,9 @@ function controller($scope) {
 			$scope.$digest(); // update only the local scope, and it's descendants
 		})
 		.on('ended', () => {
+			$scope.$applyAsync(this.forward);
+		})
+		.on('error', () => {
 			$scope.$applyAsync(this.forward);
 		});
 
