@@ -6,7 +6,7 @@
          }"
          ng-style="{ backgroundImage: 'url(' + playerCtrl.playerBg + ')' }"
          ng-animate-swap="playerCtrl.playerBg">
-        <div class="player__loader" ng-if="playerCtrl.showLoader"></div>
+        <div class="player__loader" ng-if="playerCtrl.loading"></div>
     </div>
 
     <div class="player__dashboard">
@@ -19,10 +19,16 @@
             </player-controls>
         </div>
 
-        <div class="player__trackContainer">
+        <div class="player__trackContainer" ng-class="{
+            'player__trackContainer--loading': playerCtrl.loading
+        }">
             <track-details artist-name="playerCtrl.trackData.artistName" track-name="playerCtrl.trackData.trackName"></track-details>
 
-            <track-progressbar seek="playerCtrl.seek(time)" current-time="playerCtrl.currentTime" total-time="playerCtrl.totalTime"></track-progressbar>
+            <track-progressbar seek="playerCtrl.seek(time)"
+                               current-time="playerCtrl.currentTime"
+                               total-time="playerCtrl.totalTime"
+                               ng-disabled="playerCtrl.loading">
+            </track-progressbar>
         </div>
     </div>
 </div>

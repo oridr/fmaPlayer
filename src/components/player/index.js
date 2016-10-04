@@ -21,14 +21,14 @@ function controller($scope, $q) {
 	const image = new Image();
 
 	this.playing = false;
-	this.showLoader = true;
+	this.loading = true;
 	this.totalTime = 0;
 	this.currentTime = 0;
 
 	this.playerBg = 'http://res.cloudinary.com/dmc5off8m/image/upload/v1475591496/player_bg_dzc3sm.jpg';
 
 	this.$onChanges = () => {
-		this.showLoader = true;
+		this.loading = true;
 
 		if(!this.trackData) {
 			return;
@@ -42,7 +42,7 @@ function controller($scope, $q) {
 				new Promise((resolve) => audio.onloadedmetadata = () => resolve())
 			]
 		).then(() => {
-			this.showLoader = false;
+			this.loading = false;
 			this.totalTime = audio.duration;
 			this.currentTime = 0;
 		});
@@ -83,7 +83,7 @@ function controller($scope, $q) {
 		this.playing = false;
 	};
 
-	this.seek = (time) => audio.currentTime = time;
+	this.seek = (time) => this.loading || (audio.currentTime = time);
 }
 
 module.component('player', {
