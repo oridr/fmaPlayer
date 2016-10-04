@@ -1,11 +1,9 @@
 import angular from 'angular';
 
 import player from './player';
-import fmaService from '../services/fmaService';
 
-const module = angular.module('scAppModule', [
-	player,
-	fmaService
+const module = angular.module('appMainModule', [
+	player
 ]);
 
 controller.$inject = ['fmaService'];
@@ -32,10 +30,10 @@ function controller(fmaService) {
 	this.backward = () => updateTrackData(-1);
 }
 
-module.component('scApp', {
-	template: require('./scApp.html'),
+module.component('appMain', {
+	template: require('./appMain.html'),
 	controller,
-	controllerAs: 'scAppCtrl'
+	controllerAs: 'appMainCtrl'
 });
 
 export default module.name;
