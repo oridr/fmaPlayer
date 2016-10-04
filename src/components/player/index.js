@@ -25,7 +25,7 @@ function controller($scope) {
 		this.currentTime = 0;
 		this.totalTime = 0;
 
-		audio.src = this.trackData.audioUrl;
+		this.trackData && (audio.src = this.trackData.audioUrl);
 	};
 
 	this.$onDestroy = () => $audio.off();
@@ -39,7 +39,9 @@ function controller($scope) {
 		.on('playing', () => {
 			audio.autoplay = true;
 
-			$scope.$applyAsync(() => this.playing = true);
+			this.playing = true;
+
+			$scope.$digest(); // update only the local scope, and it's descendants
 		})
 		.on('timeupdate', () => {
 			this.currentTime = audio.currentTime;

@@ -4,6 +4,7 @@
 	height: 600px;
 	margin: 0 auto;
 	font-family: Helvetica, sans-serif;
+	overflow: hidden;
 
 	&__trackImage {
 		display: block;
@@ -14,6 +15,23 @@
 		background-repeat: no-repeat;
 		-webkit-mask-image: linear-gradient(to top, transparent 0%, transparent 15%, #ffffff 50%, #ffffff 100%);
 		mask-image: linear-gradient(to top, transparent 0%, transparent 15%, #ffffff 50%, #ffffff 100%);
+		transition: transform 0.5s ease-in-out;
+
+		&.ng-enter {
+			transform: translateX(-100%);
+		}
+
+		&.ng-enter-active {
+			transform: translateX(0);
+		}
+
+		&.ng-leave {
+			transform: translateX(0);
+		}
+
+		&.ng-leave-active {
+			transform: translateX(100%);
+		}
 	}
 
 	&::before {
